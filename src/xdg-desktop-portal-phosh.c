@@ -24,6 +24,7 @@
 #include "xdg-desktop-portal-dbus.h"
 
 #include "pmp-request.h"
+#include "pmp-settings.h"
 #include "pmp-wallpaper.h"
 
 static GMainLoop *loop = NULL;
@@ -74,6 +75,10 @@ on_bus_acquired (GDBusConnection *connection,
 {
   GError *error = NULL;
 
+  if (!pmp_settings_init (connection, &error)) {
+    g_warning ("error: %s\n", error->message);
+    g_clear_error (&error);
+  }
   if (!pmp_wallpaper_init (connection, &error)) {
     g_warning ("error: %s\n", error->message);
     g_clear_error (&error);

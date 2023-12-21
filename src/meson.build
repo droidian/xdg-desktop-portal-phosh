@@ -24,11 +24,14 @@ generated_sources += gnome.compile_resources(
 )
 
 pmp_sources = files(
-  'xdg-desktop-portal-phosh.c',
+  'fc-monitor.c',
+  'fc-monitor.h',
   'pmp-external-win.c',
   'pmp-external-win.h',
   'pmp-request.c',
   'pmp-request.h',
+  'pmp-settings.c',
+  'pmp-settings.h',
   'pmp-utils.c',
   'pmp-utils.h',
   'pmp-wallpaper-preview.c',
@@ -37,10 +40,12 @@ pmp_sources = files(
   'pmp-wallpaper-dialog.h',
   'pmp-wallpaper.c',
   'pmp-wallpaper.h',
+  'xdg-desktop-portal-phosh.c',
 )
 
 pmp_deps = [
   adwaita_dep,
+  fontconfig_dep,
   glib_dep,
   gio_dep,
   gio_unix_dep,
