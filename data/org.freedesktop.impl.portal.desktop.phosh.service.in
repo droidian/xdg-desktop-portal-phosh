@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=@dbusname@
+Exec=@libexecdir@/@executablename@
+SystemdService=@executablename@.service

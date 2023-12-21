@@ -1,0 +1,35 @@
+Source: xdg-desktop-portal-phosh
+Section: gnome
+Priority: optional
+Maintainer: Guido Günther <agx@sigxcpu.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ gsettings-desktop-schemas-dev,
+ libfontconfig-dev,
+ libadwaita-1-dev (>= 1.4),
+ libglib2.0-dev (>= 2.74),
+ libgtk-4-dev (>= 4.12),
+ libgnome-bg-4-dev,
+ libgnome-desktop-4-dev,
+ meson,
+ xdg-desktop-portal-dev (>= 1.14.0),
+ xmlto,
+Rules-Requires-Root: no
+Standards-Version: 4.6.2
+
+Package: xdg-desktop-portal-phosh
+Architecture: linux-any
+Depends:
+ dbus-user-session | dbus-x11,
+ gsettings-desktop-schemas,
+ xdg-desktop-portal (>= 1.17.0),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Provides:
+ xdg-desktop-portal-backend (= 1.14.0),
+Multi-Arch: foreign
+Description: Phosh portal backend for xdg-desktop-portal
+ xdg-desktop-portal-phosh provides a GTK based implementation for the
+ desktop-agnostic xdg-desktop-portal service. This allows sandboxed
+ applications to request services from outside the sandbox using
+ GTK GUIs (file chooser). 
