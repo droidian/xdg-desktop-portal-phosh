@@ -12,6 +12,7 @@ Build-Depends:
  libgnome-bg-4-dev,
  libgnome-desktop-4-dev,
  meson,
+ systemd-dev,
  xdg-desktop-portal-dev (>= 1.14.0),
  xmlto,
 Rules-Requires-Root: no
