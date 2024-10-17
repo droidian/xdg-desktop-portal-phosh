@@ -200,7 +200,7 @@ settings_handle_read (PmpImplSettings       *object,
                                            g_variant_new ("(v)", g_variant_new_boolean (enable_animations)));
     return TRUE;
   } else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
-            (strcmp (arg_key, "gtk-theme") == 0 || strcmp (arg_key, "icon-theme") == 0)) {
+             (strcmp (arg_key, "gtk-theme") == 0)) {
     g_dbus_method_invocation_return_value (invocation,
                                            g_variant_new ("(v)", get_theme_value (arg_key)));
     return TRUE;
@@ -273,9 +273,6 @@ on_settings_changed (GSettings             *settings,
     pmp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.gnome.desktop.interface", "gtk-theme",
                                             g_variant_new ("v", get_theme_value ("gtk-theme")));
-    pmp_impl_settings_emit_setting_changed (user_data->self,
-                                            "org.gnome.desktop.interface", "icon-theme",
-                                            g_variant_new ("v", get_theme_value ("icon-theme")));
   }
 }
 
