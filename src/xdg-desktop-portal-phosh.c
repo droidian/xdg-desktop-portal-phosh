@@ -1,6 +1,6 @@
 /*
  * Copyright © 2016 Red Hat, Inc
- *             2023 Guido Günther
+ *             2023-2024 The Phosh Developers
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -174,7 +174,7 @@ main (int argc, char *argv[])
   if (opt_verbose)
     g_log_set_handler (NULL, G_LOG_LEVEL_DEBUG, message_handler, NULL);
 
-  g_set_prgname ("xdg-desktop-portal-gtk");
+  g_set_prgname ("xdg-desktop-portal-phosh");
 
   loop = g_main_loop_new (NULL, FALSE);
 
@@ -187,7 +187,7 @@ main (int argc, char *argv[])
   }
 
   owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-			     PMP_DBUS_NAME,
+                             PMP_DBUS_NAME,
                              G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
                              (opt_replace ? G_BUS_NAME_OWNER_FLAGS_REPLACE : 0),
                              on_bus_acquired,
