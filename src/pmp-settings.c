@@ -96,7 +96,7 @@ static GVariant *
 get_theme_value (const char *key)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings_hash, "org.gnome.desktop.a11y.interface");
-  const char *theme;
+  g_autofree char *theme = NULL;
   gboolean hc = FALSE;
 
   if (bundle && g_settings_schema_has_key (bundle->schema, "high-contrast"))
