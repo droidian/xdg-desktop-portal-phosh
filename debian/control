@@ -30,7 +30,6 @@ Provides:
  xdg-desktop-portal-backend (= 1.14.0),
 Multi-Arch: foreign
 Description: Phosh portal backend for xdg-desktop-portal
- xdg-desktop-portal-phosh provides a GTK based implementation for the
- desktop-agnostic xdg-desktop-portal service. This allows sandboxed
- applications to request services from outside the sandbox using
- GTK GUIs (file chooser). 
+ xdg-desktop-portal-phosh provides a GTK and Adwaita based implementation for
+ the desktop-agnostic xdg-desktop-portal service. This allows sandboxed
+ applications to request services from outside the sandbox.
