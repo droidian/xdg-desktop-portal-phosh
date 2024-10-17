@@ -187,7 +187,7 @@ main (int argc, char *argv[])
   }
 
   owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-			     PMP_DBUS_NAME,
+                             PMP_DBUS_NAME,
                              G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
                              (opt_replace ? G_BUS_NAME_OWNER_FLAGS_REPLACE : 0),
                              on_bus_acquired,
