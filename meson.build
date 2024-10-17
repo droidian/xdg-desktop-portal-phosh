@@ -91,7 +91,6 @@ add_project_arguments(
     '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver_str),
     '-DADW_VERSION_MIN_REQUIRED=@0@'.format(adw_ver_str),
     '-DADW_VERSION_MAX_ALLOWED=@0@'.format(adw_ver_str),
-    '-DG_LOG_USE_STRUCTURED',
   ],
   language: 'c',
 )
@@ -126,4 +125,3 @@ configure_file(
 subdir('data')
 subdir('po')
 subdir('src')
-
