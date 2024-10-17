@@ -1,7 +1,7 @@
 /*
  * Copyright © 2018 Igalia S.L.
- *             2024 Guido Günther
-
+ *             2024 The Phosh Developers
+ *
  * Heavily based on the xdg-desktop-portal-gnome
  *
  * Authors:

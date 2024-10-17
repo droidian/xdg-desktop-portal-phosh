@@ -1,6 +1,6 @@
 /*
  * Copyright © 2019 Red Hat, Inc
- *             2023 Guido Günther
+ *             2023-2024 The Phosh Developers
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
