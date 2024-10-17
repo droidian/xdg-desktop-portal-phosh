@@ -8,6 +8,7 @@ project('phosh mobile portal', 'c',
 pmp_exe_name = 'xdg-desktop-portal-phosh'
 pmp_dbus_name = 'org.freedesktop.impl.portal.desktop.phosh'
 pmp_portals = [
+  'org.freedesktop.impl.portal.Settings',
   'org.freedesktop.impl.portal.Wallpaper',
 ]
 
@@ -100,6 +101,7 @@ i18n  = import('i18n')
 pkgconfig = import ('pkgconfig')
 
 adwaita_dep = dependency('libadwaita-1', version: adw_ver_cmp)
+fontconfig_dep = dependency('fontconfig')
 gio_dep = dependency('gio-2.0', version: glib_ver_cmp)
 gio_unix_dep =  dependency('gio-unix-2.0', version: glib_ver_cmp)
 glib_dep = dependency('glib-2.0', version: glib_ver_cmp)
