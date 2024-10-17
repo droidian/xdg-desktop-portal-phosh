@@ -1,11 +1,14 @@
+---
 include:
- - remote: 'https://source.puri.sm/Librem5/librem5-ci/raw/master/librem5-pipeline-definitions.yml'
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/34039cd573a2df832d465bc9e4c5f543571f5241/templates/ci-fairy.yml'
+  - project: 'guidog/meta-phosh'
+    ref: 'ebb7aef58c96e3d586157f265e14d386ad8766fc'
+    file: '/ci/phosh-common-jobs.yml'
+  - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/6a40df92957c8ce9ee741aaccc5daaaf70545b1e/templates/ci-fairy.yml'
 
 stages:
- - build
- - test
- - style-checks
+  - build
+  - test
+  - style-checks
 
 default:
   # Protect CI infra from rogue jobs
@@ -39,7 +42,7 @@ variables:
 .trixie_vars: &trixie_vars
   variables:
     DIST: trixie
-    BUILD_OPTS:  ${COMMON_BUILD_OPTS}
+    BUILD_OPTS: ${COMMON_BUILD_OPTS}
 
 .build_step: &build_step
   script:
@@ -47,61 +50,41 @@ variables:
     - meson ${BUILD_OPTS} . _build
     - meson compile -C _build
 
-# Sanity checks of MR settings and commit logs
-sanity:
-  extends:
-    - .fdo.ci-fairy
-  stage: style-checks
-  script: |
-    ci-fairy check-commits --junit-xml=commit-message-junit-report.xml cifairy/main..HEAD ;
-  artifacts:
-    reports:
-      junit: commit-message-junit-report.xml
-  rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
-
 build:native-debian-trixie:
   stage: build
   image: ${DEBIAN_IMAGE}
   before_script:
-    - echo "deb http://deb.debian.org/debian/ sid main" > /etc/apt/sources.list.d/sid.list
     - apt-get -y update
     - apt-get -y install eatmydata
-    - eatmydata apt-get -y -t sid build-dep .
+    - eatmydata apt-get -y build-dep .
   <<: *trixie_vars
   <<: *build_step
   artifacts:
     paths:
       - _build
 
-format-check:
-  image: ${DEBIAN_IMAGE}
-  stage: style-checks
-  needs: []
-  script:
-    - |
-      git remote add target $CI_MERGE_REQUEST_PROJECT_URL.git
-      echo "Fetching MR target branch $CI_MERGE_REQUEST_TARGET_BRANCH_NAME from $CI_MERGE_REQUEST_PROJECT_URL"
-      git fetch target "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
-      git fetch --deepen=100 origin HEAD
-      merge_base=$(git merge-base "target/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" HEAD)
-      if [ -z "$merge_base" ]; then
-        echo "Could't determine merge base"
-        exit 1
-      fi
-      echo "Merge base: $merge_base"
-      ./.gitlab-ci/check-style.py --dry-run --sha $merge_base
-  allow_failure: true
-  rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
-
 check-po:
   stage: test
-  image: ${DEBIAN_IMAGE}
-  before_script:
-    - apt-get -y update
-    - apt-get -y install intltool gettext
-  <<: *trixie_vars
+  extends: .phosh-check-po
+
+check-consistency:
+  stage: test
+  extends: .phosh-check-consistency
+
+check-format:
+  stage: style-checks
+  extends: .phosh-format-check
+  allow_failure: true
+
+sanity:
+  extends:
+    - .fdo.ci-fairy
+  stage: style-checks
   needs: []
-  script:
-    - tools/check-po
+  script: |
+    ci-fairy check-commits --signed-off-by --junit-xml=commit-message-junit-report.xml
+  artifacts:
+    reports:
+      junit: commit-message-junit-report.xml
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME'
