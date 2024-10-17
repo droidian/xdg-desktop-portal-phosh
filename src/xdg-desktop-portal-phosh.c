@@ -174,7 +174,7 @@ main (int argc, char *argv[])
   if (opt_verbose)
     g_log_set_handler (NULL, G_LOG_LEVEL_DEBUG, message_handler, NULL);
 
-  g_set_prgname ("xdg-desktop-portal-gtk");
+  g_set_prgname ("xdg-desktop-portal-phosh");
 
   loop = g_main_loop_new (NULL, FALSE);
 
