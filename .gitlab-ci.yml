@@ -1,7 +1,7 @@
 ---
 include:
   - project: 'guidog/meta-phosh'
-    ref: 'a9fef9ad314e8b387fb9b293b9f064527ac0c023'
+    ref: '7e4c54478a07dfa3df0867a3c7be067cd254165d'
     file: '/ci/phosh-common-jobs.yml'
   - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/6a40df92957c8ce9ee741aaccc5daaaf70545b1e/templates/ci-fairy.yml'
 
@@ -39,14 +39,18 @@ variables:
   FDO_UPSTREAM_REPO: guidog/xdg-desktop-portal-phosh
   DEBIAN_IMAGE: debian:trixie
   COMMON_BUILD_OPTS: --werror
+  PHOSH_ADDITIONAL_EXPERIMENTAL_PKGS: rustc build-essential
 
 .trixie_vars: &trixie_vars
   variables:
     DIST: trixie
     BUILD_OPTS: ${COMMON_BUILD_OPTS}
+    PHOSH_ADDITIONAL_PKGS: git
 
 .build_step: &build_step
   script:
+    - !reference [.phosh-prepare-apt]
+    - eatmydata apt-get -y build-dep .
     - 'echo "Build opts: ${BUILD_OPTS}"'
     - meson ${BUILD_OPTS} . _build
     - meson compile -C _build
@@ -54,10 +58,6 @@ variables:
 build:native-debian-trixie:
   stage: build
   image: ${DEBIAN_IMAGE}
-  before_script:
-    - apt-get -y update
-    - apt-get -y install eatmydata git
-    - eatmydata apt-get -y build-dep .
   <<: *trixie_vars
   <<: *build_step
   artifacts:

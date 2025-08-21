@@ -1,7 +1,34 @@
+xdg-desktop-portal-phosh 0.49.0
+-------------------------------
+Released August 2025
+
+
+
+xdg-desktop-portal-phosh 0.49~rc1
+---------------------------------
+Released August 2025
+* Add new (rust based) account portal implementation
+* Add new (rust based) app chooser portal implementation
+* Issues fixed:
+    * https://gitlab.gnome.org/guidog/xdg-desktop-portal-phosh/-/issues/9
+    * https://gitlab.gnome.org/guidog/xdg-desktop-portal-phosh/-/issues/10
+* Contributors:
+    * Arun Mani J
+    * Guido Günther
+
+xdg-desktop-portal-phosh 0.48.0
+-------------------------------
+Released June 2025
+* Update to pfs 0.0.4 to fix the empty state when the initially
+  opened directory is empty
+* Contributors:
+    * Guido Günther
+
 xdg-desktop-portal-phosh 0.47.0
 -------------------------------
 Released May 2025
 * notification-portal: Handle cellbroadcast categories
+* Update to pfs 0.0.3
 * Contributors:
     * Guido Günther
 

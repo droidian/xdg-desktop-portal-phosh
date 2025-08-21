@@ -1,7 +1,7 @@
 project(
   'xdg-desktop-portal-phosh',
   'c',
-  version: '0.47.0',
+  version: '0.49.0',
   license: 'GPL-3.0-or-later',
   meson_version: '>= 1.0.0',
   default_options: ['warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11'],
@@ -14,6 +14,13 @@ pmp_portals = [
   'org.freedesktop.impl.portal.Notification',
   'org.freedesktop.impl.portal.Settings',
   'org.freedesktop.impl.portal.Wallpaper',
+]
+
+phrosh_exe_name = 'xdg-desktop-portal-phrosh'
+phrosh_dbus_name = 'org.freedesktop.impl.portal.desktop.phrosh'
+phrosh_interfaces = [
+  'org.freedesktop.impl.portal.Account',
+  'org.freedesktop.impl.portal.AppChooser',
 ]
 
 prefix = get_option('prefix')
